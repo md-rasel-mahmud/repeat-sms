@@ -100,8 +100,10 @@
         }
       };
       document.querySelector(".copy-btn").addEventListener("click", (event) => {
-        navigator.clipboard.writeText(result.innerText);
-        alert("Copy succeed");
+        navigator.clipboard
+          .writeText(result.innerText)
+          .then(() => alert("Copy succeed"))
+          .catch(() => alert("Error to copy"));
       });
     </script>
   </body>
