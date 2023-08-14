@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loop sms</title>
+
+    <style>
+      body {
+        color: #fff;
+        background-color: black;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        color: #fff;
+      }
+      header h2 {
+        font-size: 2rem;
+        text-transform: uppercase;
+      }
+      form {
+        background-color: gray;
+        padding: 1rem;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+      }
+      form input,
+      textarea {
+        background-color: black;
+        border: none;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        color: #fff;
+      }
+      input[type="submit"] {
+        background-color: aqua;
+      }
+      input[type="submit"]:hover {
+        background-color: black;
+        cursor: pointer;
+      }
+      #result {
+        margin-top: 1rem;
+        border-radius: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.089);
+      }
+      .copy-btn {
+        background-color: blueviolet;
+        border-radius: 0.5rem;
+        border: none;
+        margin: 0.5rem;
+        padding: 0.5rem;
+        color: #fff;
+        cursor: pointer;
+        display: none;
+      }
+      .copy-btn:hover {
+        background-color: rgba(6, 65, 65, 0.233);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h2>Message loop</h2>
+      <button class="copy-btn">Copy whole text</button>
+      <form onsubmit="handleSubmit(event)" align="center">
+        <input type="number" name="count" placeholder="Message Count" />
+        <br />
+        <textarea name="message" placeholder="Enter your Message"></textarea>
+        <br />
+        <input type="submit" value="Create" />
+        <div id="result"></div>
+      </form>
+    </header>
+    <script>
+      const result = document.getElementById("result");
+
+      const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+
+        document.querySelector(".copy-btn").style.display = "block";
+
+        const count = form.count.value;
+        const message = form.message.value;
+
+        for (let i = 0; i < count; i++) {
+          const p = document.createElement("p");
+          p.innerText = `${i + 1}. ${message}`;
+
+          result.appendChild(p);
+        }
+      };
+      document.querySelector(".copy-btn").addEventListener("click", (event) => {
+        navigator.clipboard.writeText(result.innerText);
+        alert("Copy succeed");
+      });
+    </script>
+  </body>
+</html>
