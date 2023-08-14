@@ -99,12 +99,17 @@
           result.appendChild(p);
         }
       };
-      document.querySelector(".copy-btn").addEventListener("click", (event) => {
-        navigator.clipboard
-          .writeText(result.innerText)
-          .then(() => alert("Copy succeed"))
-          .catch(() => alert("Error to copy"));
-      });
+
+      document
+        .querySelector(".copy-btn")
+        .addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(result.innerText);
+            alert("Text copied to clipboard");
+          } catch (error) {
+            alert("Error copying text:", error);
+          }
+        });
     </script>
   </body>
 </html>
